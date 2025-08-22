@@ -32,6 +32,10 @@ requirements.txt    # Python dependencies
 ## Quick Start
 
 ```bash
+#To get started, first clone the repository:
+git clone https://github.com/Pradyut-Guchhait/Network_Simulator.git
+cd Network_Simulator
+
 # (Optional) create a virtual environment
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
