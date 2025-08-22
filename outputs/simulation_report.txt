@@ -1,0 +1,15 @@
+Simulation Report
+==================
+
+Link Failure: R1-R2
+Affected nodes: ['R1', 'R2']
+
+Validations:
+MTU mismatch on link R1-R2 VLAN 10: 1500 vs 1400
+
+Recommendations:
+Link R1-SW1 (50 Mbps) may saturate under peak 60 Mbps. Recommend activating/engineering secondary paths or traffic shaping for low-priority flows.
+Link R2-SW2 (50 Mbps) may saturate under peak 80 Mbps. Recommend activating/engineering secondary paths or traffic shaping for low-priority flows.
+Consider using BGP for inter-domain paths; keep OSPF intra-domain.
+Aggregate SW1 into its upstream router to reduce node count, if policy permits.
+Aggregate SW2 into its upstream router to reduce node count, if policy permits.

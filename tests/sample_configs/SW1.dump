@@ -1,0 +1,4 @@
+hostname SW1
+role switch
+interface Vlan20 ip 10.0.1.2/24 vlan 20 mtu 1500 bw_mbps 100 neighbor R1
+endpoint app type web peak_mbps 60 avg_mbps 20

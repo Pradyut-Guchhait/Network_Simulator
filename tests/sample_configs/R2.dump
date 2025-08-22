@@ -1,0 +1,5 @@
+hostname R2
+role router
+interface Gi0/0 ip 10.0.0.2/24 vlan 10 mtu 1400 bw_mbps 100 neighbor R1
+interface Gi0/1 ip 10.0.2.1/24 vlan 30 mtu 1500 bw_mbps 50 neighbor SW2
+ospf enabled

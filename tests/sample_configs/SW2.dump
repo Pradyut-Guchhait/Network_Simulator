@@ -1,0 +1,4 @@
+hostname SW2
+role switch
+interface Vlan30 ip 10.0.2.2/24 vlan 30 mtu 1500 bw_mbps 100 neighbor R2
+endpoint batch type backup peak_mbps 80 avg_mbps 30

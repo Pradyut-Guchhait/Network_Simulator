@@ -1,0 +1,10 @@
+SW1 received {'type': 'hello', 'from': 'R1'}
+R1 received {'type': 'hello', 'from': 'SW1'}
+SW2 received {'type': 'hello', 'from': 'R2'}
+R2 received {'type': 'hello', 'from': 'SW2'}
+R1 ARP cache primed (simulated)
+SW1 ARP cache primed (simulated)
+SW2 ARP cache primed (simulated)
+R2 ran OSPF neighbor discovery
+R2 ARP cache primed (simulated)
+Link failure injected on R1-R2. Endpoints behind R1 and R2 may be impacted.
