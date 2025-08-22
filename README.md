@@ -26,7 +26,6 @@ a topology from raw device configurations while also supporting simulation and f
 src/                # Application source code
 tests/              # Unit tests and sample device configurations
 outputs/            # Generated artifacts (topology diagram, logs, reports)
-docs/               # Documentation (report, architecture notes, README)
 requirements.txt    # Python dependencies
 ```
 
