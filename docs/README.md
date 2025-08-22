@@ -1,60 +1,66 @@
 # Network Topology Simulator
 
-A ready-to-run reference implementation that:
-- **Parses** router/switch configs to **generate a hierarchical topology**
-- **Validates** duplicate IPs, VLAN labels, MTU mismatches, loops, and missing components
-- **Plans capacity** and **recommends load balancing** if links can't support peak traffic
-- **Simulates Day-1** behaviors (ARP, neighbor/OSPF discovery) and **injects link failures**
-- **Uses multithreading** per device and simple **IPC** for metadata exchange
-- Provides **logs, a topology image, and a simulation report**
+## Overview
 
-> Built to meet the requirements in the VIP 2025 – Networking stream problem statement. 【5†source】
+The **Network Topology Simulator** is a reference implementation developed as part of the Cisco VIP 2025 Networking stream. 
+It automates topology generation from router and switch configuration files, validates network consistency, provides 
+optimization recommendations, and simulates Day‑1 and Day‑2 events such as link failures and routing discovery. 【28†source】
 
-## Quickstart
+The tool addresses a common challenge in networking: the absence of a solution that can automatically construct and verify 
+a topology from raw device configurations while also supporting simulation and fault injection. 【28†source】
 
-```bash
-# (Optional) create a virtualenv
-python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+## Key Features
 
-pip install -r requirements.txt
-
-# Run with sample configs
-python -m src.main --conf tests/sample_configs --out outputs
-
-# Inject a link failure
-python -m src.main --link-fail R1-R2
-```
-
-Outputs are written to `outputs/`:
-- `topology.png` – rendered simple topology
-- `logs.txt` – thread/device log lines
-- `simulation_report.txt` – validations and recommendations
-
-## How it maps to requirements
-
-- **Topology generation** from config files, hierarchy-aware drawing. 【5†source】
-- **Bandwidth awareness** and **load balancing recommendations** for saturated links. 【5†source】
-- **Validation**: duplicate IPs (per VLAN), wrong/missing components, gateway presence, MTU mismatch, loops. 【5†source】
-- **Simulation**: ARP/OSPF discovery; link failure impact listing. 【5†source】
-- **Implementation**: multithreading per device; IPC via in-memory queues (FIFO analogue). 【5†source】
-- **Day-2 readiness**: re-run after edits; link-failure flag emulates pause/resume scenarios. 【5†source】
+- **Topology Generation**: Automatic construction of hierarchical topologies from device configuration files. 【28†source】  
+- **Validation**: Detection of duplicate IP addresses, VLAN inconsistencies, incorrect gateways, MTU mismatches, and network loops. 【28†source】  
+- **Performance & Load Management**: Bandwidth‑aware checks with load balancing recommendations under peak demand. 【28†source】  
+- **Optimization**: Node aggregation opportunities, protocol recommendations (BGP vs. OSPF), and fault‑tolerant designs. 【28†source】  
+- **Simulation**:  
+  - Day‑1 scenarios: ARP, neighbor discovery, and OSPF discovery.  
+  - Link failure injection: analysis of affected endpoints and impact on traffic. 【28†source】  
+- **Implementation Architecture**: Multithreaded device simulation with inter‑process communication (IPC) and per‑node statistics/logging. 【28†source】  
 
 ## Project Layout
 
 ```
-src/                # application modules
-tests/              # unit tests + sample configs
-outputs/            # generated artifacts
-docs/               # report & architecture notes
-requirements.txt
+src/                # Application source code
+tests/              # Unit tests and sample device configurations
+outputs/            # Generated artifacts (topology diagram, logs, reports)
+docs/               # Documentation (report, architecture notes, README)
+requirements.txt    # Python dependencies
 ```
 
-## Extending
+## Quick Start
 
-- Swap `InMemoryIPC` with TCP sockets for cross-process simulation.
-- Add packet-level simulation for real IP packets.
-- Integrate richer config grammars (Cisco/Juniper show outputs).
+```bash
+# (Optional) create a virtual environment
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run with provided sample configurations
+python -m src.main --conf tests/sample_configs --out outputs
+
+# Inject a link failure between two nodes (example: R1-R2)
+python -m src.main --link-fail R1-R2
+```
+
+### Outputs
+
+- **topology.png** – Auto‑generated topology diagram.  
+- **logs.txt** – Per‑device logs of discovery and simulation events.  
+- **simulation_report.txt** – Consolidated validations, optimizations, and fault analysis.  
+
+## Extensibility
+
+The implementation is modular and can be extended with:  
+- Real device configuration grammars (Cisco IOS, JunOS, etc.).  
+- More advanced IPC mechanisms (FIFO or TCP sockets).  
+- Detailed packet‑level protocol simulations.  
+- Enhanced visualization and performance dashboards.  
 
 ## License
 
-MIT (for your academic submission).
+This implementation is released under the MIT license for academic and research purposes.

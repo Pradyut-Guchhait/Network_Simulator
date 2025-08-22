@@ -1,56 +1,59 @@
-# Project Report — Network Topology Generation, Validation, and Simulation
+# Project Report — Network Topology Simulator
 
-**Objective.** Build a tool that automatically creates a hierarchical topology from router configs, validates configuration health, recommends optimizations, and simulates Day‑1/Day‑2 network events. 【5†source】
+## 1. Introduction
 
-## 1. Architecture
+Modern enterprise networks are increasingly complex, requiring automated tools for topology 
+generation, validation, optimization, and fault simulation. This project implements a 
+**Network Topology Simulator** to meet the requirements outlined in the Cisco VIP 2025 
+Networking problem statement. 【28†source】
 
-- **config_parser** parses simplified device configs into a device graph.
-- **topology_builder** connects neighbors and annotates links with VLAN, MTU, and bandwidth.
-- **validator** performs checks: duplicate IPs in VLANs, MTU mismatches, loops, and missing configs.
-- **optimizer** computes peak demands and recommends load balancing, protocol choices (BGP vs OSPF), and node aggregation.
-- **simulator** spins threads per device, exchanges metadata over an IPC bus, and records Day‑1 discovery plus fault injection.
-- **main** orchestrates the pipeline and writes outputs (logs, PNG, and report).
+## 2. Objectives
 
-A lightweight in‑memory IPC queue stands in for FIFO/TCP sockets; swap with sockets for multi‑process runs. 【5†source】
+- Automate topology creation from device configuration files. 【28†source】  
+- Verify link capacities against expected traffic loads. 【28†source】  
+- Detect configuration errors: duplicate IPs, VLAN/gateway issues, MTU mismatches, loops. 【28†source】  
+- Recommend optimizations such as node aggregation and protocol choice. 【28†source】  
+- Simulate Day‑1 (boot, ARP, neighbor discovery) and Day‑2 (link failures, re‑configuration) events. 【28†source】  
 
-## 2. Configuration Grammar
+## 3. System Architecture
 
-Example:
+The solution is structured into distinct modules:
 
-```
-hostname R1
-role router
-interface Gi0/0 ip 10.0.0.1/24 vlan 10 mtu 1500 bw_mbps 100 neighbor R2
-gateway 10.0.0.254
-```
+- **Configuration Parser**: Extracts device roles, interfaces, endpoints, and routing flags.  
+- **Topology Builder**: Establishes connectivity based on neighbor references, VLAN IDs, MTU, and bandwidth.  
+- **Validator**: Performs integrity checks across IP addressing, VLANs, gateways, and physical loops.  
+- **Optimizer**: Provides load balancing recommendations, protocol suggestions, and node aggregation opportunities.  
+- **Simulator**: Multithreaded device model exchanging metadata packets via IPC; supports fault injection.  
+- **Main Orchestrator**: Integrates the workflow, writes outputs, and generates a topology diagram.  
 
-This is intentionally small yet expressive enough to demonstrate the full workflow.
+A lightweight in‑memory IPC bus models FIFO/TCP messaging. This design can be extended to real sockets for distributed simulation. 【28†source】
 
-## 3. Algorithms
+## 4. Implementation Highlights
 
-- **Topology build:** neighbor join + VLAN tagging on links.
-- **Validation:** O(V+E) scans; cycle detection via BFS; MTU pairwise check on edges.
-- **Capacity & LB:** sum endpoint peak Mbps per node; flag links where sum(load) > bw; recommend secondary path or shaping.
-- **Simulation:** short‑running threaded exchange of HELLO messages; optional OSPF flag triggers discovery logs.
+- **Programming Language**: Python (modular structure).  
+- **Concurrency**: Each device represented by a thread.  
+- **IPC**: Implemented via in‑memory message queues (FIFO‑style).  
+- **Visualization**: Topology rendered using Matplotlib.  
+- **Testing**: Unit tests covering configuration parsing, validation logic, and simulation routines.  
 
-## 4. Testing
+## 5. Outputs
 
-`pytest`-style tests check parser basics, MTU mismatch detection, and simulation behavior.
+Upon execution, the following deliverables are generated:
 
-## 5. Outputs (sample run)
+- **Topology Diagram (topology.png)** – Hierarchical view of routers and switches.  
+- **Simulation Logs (logs.txt)** – Device‑level messages for ARP, OSPF, and neighbor discovery.  
+- **Simulation Report (simulation_report.txt)** – Consolidated findings: validation errors, optimization advice, fault impact analysis.  
 
-See `outputs/` after running `python -m src.main`:
-- `topology.png` – simple diagram with routers on top, switches below.
-- `logs.txt` – inter‑thread messages and OSPF/ARP actions.
-- `simulation_report.txt` – validations and recommendations list.
+## 6. Limitations & Future Enhancements
 
-## 6. Limitations & Future Work
-
-- Real CLI configs vary widely; extend parser to vendor‑specific syntaxes.
-- True IPC (TCP/FIFO) and message capacity provisioning. 【5†source】
-- Detailed protocol state machines (ARP tables, OSPF LSAs), MTU black‑hole simulation.
-- Path‑based load sharing (ECMP), policy routing, and failure domains.
+- Parsing currently supports a simplified configuration grammar. Vendor‑specific grammars can be added.  
+- IPC is limited to in‑memory queues; extending to sockets would allow distributed, multi‑host simulation.  
+- Protocol simulations (ARP, OSPF) are abstracted to log entries. Future work could implement detailed packet exchanges.  
+- Load balancing recommendations are heuristic; integration with real traffic engineering policies would improve fidelity.  
 
 ## 7. Conclusion
 
-The submission demonstrates automatic topology generation, policy checks, optimization advice, and Day‑1/Day‑2 simulation with fault injection, aligning with the VIP 2025 problem statement. 【5†source】
+The Network Topology Simulator provides an integrated framework for topology generation, 
+configuration validation, network optimization, and simulation. By combining automated parsing, 
+multithreaded device modeling, and IPC‑based communication, it demonstrates a practical 
+solution aligned with the VIP 2025 networking problem statement. 【28†source】
