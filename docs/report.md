@@ -5,15 +5,15 @@
 Modern enterprise networks are increasingly complex, requiring automated tools for topology 
 generation, validation, optimization, and fault simulation. This project implements a 
 **Network Topology Simulator** to meet the requirements outlined in the Cisco VIP 2025 
-Networking problem statement. 【28†source】
+Networking problem statement.
 
 ## 2. Objectives
 
-- Automate topology creation from device configuration files. 【28†source】  
-- Verify link capacities against expected traffic loads. 【28†source】  
-- Detect configuration errors: duplicate IPs, VLAN/gateway issues, MTU mismatches, loops. 【28†source】  
-- Recommend optimizations such as node aggregation and protocol choice. 【28†source】  
-- Simulate Day‑1 (boot, ARP, neighbor discovery) and Day‑2 (link failures, re‑configuration) events. 【28†source】  
+- Automate topology creation from device configuration files.   
+- Verify link capacities against expected traffic loads.   
+- Detect configuration errors: duplicate IPs, VLAN/gateway issues, MTU mismatches, loops.   
+- Recommend optimizations such as node aggregation and protocol choice.   
+- Simulate Day‑1 (boot, ARP, neighbor discovery) and Day‑2 (link failures, re‑configuration) events.   
 
 ## 3. System Architecture
 
@@ -26,7 +26,7 @@ The solution is structured into distinct modules:
 - **Simulator**: Multithreaded device model exchanging metadata packets via IPC; supports fault injection.  
 - **Main Orchestrator**: Integrates the workflow, writes outputs, and generates a topology diagram.  
 
-A lightweight in‑memory IPC bus models FIFO/TCP messaging. This design can be extended to real sockets for distributed simulation. 【28†source】
+A lightweight in‑memory IPC bus models FIFO/TCP messaging. This design can be extended to real sockets for distributed simulation. 
 
 ## 4. Implementation Highlights
 
@@ -56,4 +56,4 @@ Upon execution, the following deliverables are generated:
 The Network Topology Simulator provides an integrated framework for topology generation, 
 configuration validation, network optimization, and simulation. By combining automated parsing, 
 multithreaded device modeling, and IPC‑based communication, it demonstrates a practical 
-solution aligned with the VIP 2025 networking problem statement. 【28†source】
+solution aligned with the VIP 2025 networking problem statement. 

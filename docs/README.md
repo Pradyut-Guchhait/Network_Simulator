@@ -2,23 +2,23 @@
 
 ## Overview
 
-The **Network Topology Simulator** is a reference implementation developed as part of the Cisco VIP 2025 Networking stream. 
+The **Network Topology Simulator** is a reference implementation developed as part of the Cisco-AICTE VIP Program. 
 It automates topology generation from router and switch configuration files, validates network consistency, provides 
-optimization recommendations, and simulates Day‑1 and Day‑2 events such as link failures and routing discovery. 【28†source】
+optimization recommendations, and simulates Day‑1 and Day‑2 events such as link failures and routing discovery.
 
 The tool addresses a common challenge in networking: the absence of a solution that can automatically construct and verify 
-a topology from raw device configurations while also supporting simulation and fault injection. 【28†source】
+a topology from raw device configurations while also supporting simulation and fault injection.
 
 ## Key Features
 
-- **Topology Generation**: Automatic construction of hierarchical topologies from device configuration files. 【28†source】  
-- **Validation**: Detection of duplicate IP addresses, VLAN inconsistencies, incorrect gateways, MTU mismatches, and network loops. 【28†source】  
-- **Performance & Load Management**: Bandwidth‑aware checks with load balancing recommendations under peak demand. 【28†source】  
-- **Optimization**: Node aggregation opportunities, protocol recommendations (BGP vs. OSPF), and fault‑tolerant designs. 【28†source】  
+- **Topology Generation**: Automatic construction of hierarchical topologies from device configuration files. 
+- **Validation**: Detection of duplicate IP addresses, VLAN inconsistencies, incorrect gateways, MTU mismatches, and network loops. 
+- **Performance & Load Management**: Bandwidth‑aware checks with load balancing recommendations under peak demand.  
+- **Optimization**: Node aggregation opportunities, protocol recommendations (BGP vs. OSPF), and fault‑tolerant designs.  
 - **Simulation**:  
   - Day‑1 scenarios: ARP, neighbor discovery, and OSPF discovery.  
-  - Link failure injection: analysis of affected endpoints and impact on traffic. 【28†source】  
-- **Implementation Architecture**: Multithreaded device simulation with inter‑process communication (IPC) and per‑node statistics/logging. 【28†source】  
+  - Link failure injection: analysis of affected endpoints and impact on traffic.   
+- **Implementation Architecture**: Multithreaded device simulation with inter‑process communication (IPC) and per‑node statistics/logging.   
 
 ## Project Layout
 
